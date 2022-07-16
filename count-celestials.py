@@ -49,7 +49,6 @@ def flood_search_impl(i,j,v,chain:set):
             
 
 
-# source = io.imread('sample.png')
 source = io.imread(IMAGE_PATH)
 source = source[:,:,:3]
 img = color.rgb2gray(source)
@@ -82,6 +81,7 @@ for (i,j,v) in pixels:
 # show the result
 print(f"number of seeds: {len(seeds)}")
 
+# save positions to a file
 with open('result.csv','w') as f:
     f.write('id,i,j,v\r\n')
     ID = 0
@@ -89,8 +89,11 @@ with open('result.csv','w') as f:
         ID += 1
         f.write(f"{ID},{i},{j},{v}\r\n")
 
+
+# create a visual image with markers on detected points
 for [(i,j),v] in seeds:
     
+    # mark a yellow cross sign on image
     for y in range(max(i-4,0),min(i+5,h)):
         for x in range(max(j-4,0),min(j+5,w)):
             if y == i and x == j or y - i == x - j or y - i == j - x:
